@@ -11,29 +11,38 @@
 <script type="text/javascript">
 var destinationType;
 
-$("document").ready(function inicio(){
+document.addEventListener("deviceready", onDeviceReady, false);
 
-$("#btnCamara").tap(function pulsacion(){;
-    alert("Ejecucion corecta");
-navigator.camara.getPincture(Satisfactorio, Error, {quality:50, allowEdit:true, destinationType:destinationType.DATA_URL });
-});
+function onDeviceReady() {
+     $("#btnCamara").tap(function pulsacion(){
+    
+    navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+    destinationType: Camera.DestinationType.FILE_URI });
 
-});
+    function onSuccess(imageURI) {
+    var image = document.getElementById("myImage");//Seleccionar control con javascript
+    image.src = imageURI;
+    }
+
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }            
+   });
+}
 </script>
 <style type="text/css">
 #encabezado{
 text-align:center;
-font-size:19px;
-color:orange;
+font-size: 14px;
+color:red;
 font-weight:bold;
 }
 #pie{
 text-align:center;
-font-size:25px;
-color:red;
-font-style:italic;
+font-size:8px;
+color:green;
+font-weight:bold;
 }
-
 </style>
 </head>
 <body>
@@ -42,21 +51,16 @@ font-style:italic;
 		<h1>Mi aplicación</h1>
 	</div>
 	<div data-role="content">
-		<p id="encabezado">Transiciones</p>
-                <input type="button" value="Acceder a Camara" id="btnCamara"/>
-       
-               
-                
-       
-	
-         </div>
-              <script type="text/javascript" src="/wp-content/uploads/tutorial-data/cordova.js"></script>
-              <script type="text/javascript" src="/wp-content/uploads/tutorial-data/js/index.js"></script>
-              <script type="text/javascript">app.initialize();</script>
-              
-              
+		<input type="button" value="Acceder a camara" id="btnCamara" />
+		<img src="" id="myImage" />
+  	</div>
+	<div data-role="footer">
+     	<div  data-role="controlgroup" data-type="horizontal">
+			<a href="#segunda" class="ui-btn ui-icon-info-white ui-icon-left">Abrir</a>
+			<a href="#" class="ui-btn">Fecebook</a>
+			<a href="#" class="ui-btn">Twitter</a>
+		</div>
+	</div>
 </div>
-    
-
 </body>
 </html>
